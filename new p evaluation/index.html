@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Evaluation System</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/5.3.1/fabric.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="photo-section">
+            <h2>Upload Photos</h2>
+            <input type="file" id="imageInput" accept="image/*" multiple>
+            <div id="imagePreview"></div>
+            <button onclick="convertToPDF()">Convert to PDF</button>
+        </div>
+        
+        <div class="form-section">
+            <h2>Student Information</h2>
+            <form id="evaluationForm">
+                <div class="form-group">
+                    <label for="name">Student Name:</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="rollNo">Roll Number:</label>
+                    <input type="text" id="rollNo" name="rollNo" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="erp">ERP:</label>
+                    <input type="text" id="erp" name="erp" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="subject">Subject:</label>
+                    <select id="subject" name="subject" required>
+                        <option value="">Select Subject</option>
+                        <option value="mathematics">Mathematics</option>
+                        <option value="physics">Physics</option>
+                        <option value="chemistry">Chemistry</option>
+                        <option value="biology">Biology</option>
+                    </select>
+                </div>
+                
+                <div class="marks-section">
+                    <h3>Question Marks</h3>
+                    <div class="form-group">
+                        <label for="q1">Question 1:</label>
+                        <input type="number" id="q1" name="q1" min="0" max="20" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="q2">Question 2:</label>
+                        <input type="number" id="q2" name="q2" min="0" max="20" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="q3">Question 3:</label>
+                        <input type="number" id="q3" name="q3" min="0" max="20" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="q4">Question 4:</label>
+                        <input type="number" id="q4" name="q4" min="0" max="20" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="q5">Question 5:</label>
+                        <input type="number" id="q5" name="q5" min="0" max="20" required>
+                    </div>
+                </div>
+                
+                <button type="submit">Submit Evaluation</button>
+            </form>
+        </div>
+    </div>
+    
+    <div id="pdfViewer" class="pdf-viewer">
+        <div class="pdf-toolbar">
+            <button id="prevPage" class="toolbar-btn">Previous</button>
+            <span id="pageInfo">Page <span id="pageNum">1</span> of <span id="pageCount">1</span></span>
+            <button id="nextPage" class="toolbar-btn">Next</button>
+            <input type="range" id="pageSlider" min="1" value="1" class="page-slider">
+            
+            <div class="annotation-tools">
+                <button id="redMarker" class="toolbar-btn">Red Marker</button>
+                <button id="blackMarker" class="toolbar-btn">Black Marker</button>
+                <button id="eraser" class="toolbar-btn">Eraser</button>
+            </div>
+
+            <div class="action-buttons">
+                <button id="submitBtn" class="toolbar-btn submit-btn">Submit</button>
+                <button id="doneBtn" class="toolbar-btn done-btn">Done</button>
+            </div>
+        </div>
+        <div class="pdf-container">
+            <canvas id="pdfCanvas"></canvas>
+            <canvas id="drawingCanvas"></canvas>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

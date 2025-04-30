@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     <link rel="icon" href="logo.jpg">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DisciTrack - Study Time Tracker</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
+</head>
+<body class="light-mode">
+ 
+    <nav class="navbar">
+        <div class="nav-logo">
+            <img src="logo.jpg" alt="Study Tracker Logo">
+            <span class="logo-text">DisciTrack</span>
+        </div>
+        
+        <button class="mobile-nav-toggle">
+            <i class="fas fa-bars"></i>
+        </button>
+        
+        <div class="nav-links">
+            <a href="#home" class="nav-link active">Home</a>
+            <a href="#about" class="nav-link">About</a>
+            <a href="#contact" class="nav-link">Contact</a>
+        </div>
+        
+        <div class="nav-right">
+            <div id="digitalClock" class="text-xl font-semibold mr-4 animate__animated animate__fadeIn">00:00:00</div>
+            <button id="themeToggle" class="theme-toggle">🌙</button>
+        </div>
+    </nav>
+
+    <main class="pt-16">
+        <div class="main-container" id="mainContainer">
+            <!-- Replace the video-container div with this new structure -->
+            <div class="tracking-section">
+                <div class="video-container">
+                    <video id="video" autoplay playsinline></video>
+                    <canvas id="canvas"></canvas>
+                </div>
+                <div class="clock-container">
+                    <div class="digital-clock">
+                        <div class="time-unit">
+                            <span id="hours">00</span>
+                            <label>Hours</label>
+                        </div>
+                        <div class="time-separator">:</div>
+                        <div class="time-unit">
+                            <span id="minutes">00</span>
+                            <label>Minutes</label>
+                        </div>
+                        <div class="time-separator">:</div>
+                        <div class="time-unit">
+                            <span id="seconds">00</span>
+                            <label>Seconds</label>
+                        </div>
+                    </div>
+                    <div class="session-time">
+                        <h3>Session Duration</h3>
+                        <div id="sessionTime">00:00:00</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timers">
+                <div class="timer">
+                    <h3>Effective Study Time</h3>
+                    <div id="effectiveTime">00:00:00</div>
+                </div>
+                <div class="timer">
+                    <h3>Distracted Time</h3>
+                    <div id="distractedTime">00:00:00</div>
+                </div>
+                <div class="timer">
+                    <h3>Recovery Time</h3>
+                    <div id="recoveryTime">00:00:00</div>
+                </div>
+            </div>
+
+            <div class="controls">
+                <button id="startTracking">Start Tracking</button>
+                <button id="pauseTracking">Pause</button>
+                <button id="resetTracking">Reset</button>
+            </div>
+        </div>
+
+       
+        <!-- About Section -->
+        <section id="about" class="my-16 animate__animated animate__fadeIn">
+        <!-- Replace the existing about section with this new one -->
+        <div class="about-section" id="about">
+            <h2>About Study Time Tracker</h2>
+            
+            <div class="about-intro">
+                <p>An intelligent study companion that helps you maximize your learning potential through AI-powered tracking and analytics.</p>
+            </div>
+        
+            <div class="about-content">
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3>Smart Focus Detection</h3>
+                    <p>Our advanced AI technology tracks your face position to determine your focus level:</p>
+                    <ul>
+                        <li>Front/Downward: Active studying</li>
+                        <li>Side views: Distraction detected</li>
+                        <li>Absence detection: Break monitoring</li>
+                    </ul>
+                </div>
+        
+                <div class="feature-card">
+                    <div class="feature-icon">⏱️</div>
+                    <h3>Triple Clock System</h3>
+                    <p>Comprehensive time tracking with three specialized clocks:</p>
+                    <ul>
+                        <li>Study Clock: Tracks focused learning time</li>
+                        <li>Waste Clock: Monitors distraction periods</li>
+                        <li>Recovery Clock: Helps balance study sessions</li>
+                    </ul>
+                </div>
+        
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>Progress Analytics</h3>
+                    <p>Detailed insights into your study habits:</p>
+                    <ul>
+                        <li>Real-time performance metrics</li>
+                        <li>Session history tracking</li>
+                        <li>Progress visualization</li>
+                    </ul>
+                </div>
+            </div>
+        
+            <div class="benefits-section">
+                <h3>Why Use Study Time Tracker?</h3>
+                <div class="benefits-grid">
+                    <div class="benefit-item">
+                        <span class="benefit-icon">💡</span>
+                        <h4>Improve Focus</h4>
+                        <p>Real-time feedback helps maintain concentration</p>
+                    </div>
+                    <div class="benefit-item">
+                        <span class="benefit-icon">📈</span>
+                        <h4>Track Progress</h4>
+                        <p>Monitor your improvement over time</p>
+                    </div>
+                    <div class="benefit-item">
+                        <span class="benefit-icon">⚡</span>
+                        <h4>Boost Productivity</h4>
+                        <p>Optimize your study sessions</p>
+                    </div>
+                    <div class="benefit-item">
+                        <span class="benefit-icon">🎯</span>
+                        <h4>Stay Accountable</h4>
+                        <p>Meet your study goals consistently</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <a href="https://chat.openai.com" target="_blank" class="chatgpt-btn" title="Open ChatGPT">
+        <span class="chatgpt-icon">🤖</span>
+    </a>
+    <!-- Contact Section -->
+    <!-- Replace the existing contact section with this new one -->
+    <section id="contact" class="contact-section animate__animated animate__fadeIn">
+        <div class="contact-header">
+            <h2>Get in Touch</h2>
+            <p class="contact-intro">Have questions or feedback? We're here to help you optimize your study experience.</p>
+        </div>
+    
+        <div class="contact-container">
+            <div class="contact-info">
+                <div class="info-card animate__animated animate__fadeInLeft">
+                    <div class="info-icon">📍</div>
+                    <h3>Visit Us</h3>
+                    <p>123 Study Street</p>
+                    <p>Learning District, ED 12345</p>
+                </div>
+    
+                <div class="info-card animate__animated animate__fadeInLeft" style="animation-delay: 0.2s">
+                    <div class="info-icon">📞</div>
+                    <h3>Call Us</h3>
+                    <p>+1 (123) 456-7890</p>
+                    <p>Mon-Fri: 9AM - 6PM</p>
+                </div>
+    
+                <div class="info-card animate__animated animate__fadeInLeft" style="animation-delay: 0.4s">
+                    <div class="info-icon">✉️</div>
+                    <h3>Email Us</h3>
+                    <p>support@studytracker.com</p>
+                    <p>info@studytracker.com</p>
+                </div>
+    
+                <div class="social-links animate__animated animate__fadeInUp">
+                    <h3>Connect With Us</h3>
+                    <div class="social-icons">
+                        <a href="#" class="social-icon hover:scale-110 transition-transform">📱</a>
+                        <a href="#" class="social-icon hover:scale-110 transition-transform">👥</a>
+                        <a href="#" class="social-icon hover:scale-110 transition-transform">📸</a>
+                        <a href="#" class="social-icon hover:scale-110 transition-transform">🐦</a>
+                    </div>
+                </div>
+            </div>
+    
+            <div class="contact-form-container animate__animated animate__fadeInRight">
+                <h3>Send Us a Message</h3>
+                <form class="contact-form" id="contactForm">
+                    <div class="form-group">
+                        <input type="text" id="name" placeholder="Your Name" required class="focus:ring-2 focus:ring-blue-500 transition-all duration-300">
+                        <input type="email" id="email" placeholder="Your Email" required class="focus:ring-2 focus:ring-blue-500 transition-all duration-300">
+                    </div>
+    
+                    <div class="form-group">
+                        <select id="subject" required class="focus:ring-2 focus:ring-blue-500 transition-all duration-300">
+                            <option value="">Select Subject</option>
+                            <option value="technical">Technical Support</option>
+                            <option value="feedback">Product Feedback</option>
+                            <option value="billing">Billing Query</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+    
+                    <div class="form-group">
+                        <textarea id="message" placeholder="Your Message" required class="focus:ring-2 focus:ring-blue-500 transition-all duration-300"></textarea>
+                    </div>
+    
+                    <div class="form-group">
+                        <label class="checkbox-container">
+                            <input type="checkbox" required>
+                            <span class="checkmark"></span>
+                            <p>I agree to the privacy policy and terms of service</p>
+                        </label>
+                    </div>
+                    <button type="submit" class="submit-btn hover:scale-105 transition-transform">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+    
+   
+
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/blazeface"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
+<!-- Add the footer section -->
+<footer class="footer animate__animated animate__fadeIn">
+    <div class="footer-content">
+        <div class="footer-section animate__animated animate__fadeInUp">
+            <h4>About Us</h4>
+            <p>Empowering students to maximize their study potential through intelligent time tracking and analytics.</p>
+            <div class="footer-social">
+                <a href="#" aria-label="Facebook" class="hover:scale-110 transition-transform">📱</a>
+                <a href="#" aria-label="Twitter" class="hover:scale-110 transition-transform">🐦</a>
+                <a href="#" aria-label="Instagram" class="hover:scale-110 transition-transform">📸</a>
+                <a href="#" aria-label="LinkedIn" class="hover:scale-110 transition-transform">👥</a>
+            </div>
+        </div>
+
+        
+        
+
+        <!-- Update footer quick links -->
+        <div class="footer-section animate__animated animate__fadeInUp" style="animation-delay: 0.2s">
+            <h4>Quick Links</h4>
+            <ul>
+                <li><a href="#home" class="hover:text-blue-500 transition-colors">Home</a></li>
+                <li><a href="#about" class="hover:text-blue-500 transition-colors">About</a></li>
+                <li><a href="#contact" class="hover:text-blue-500 transition-colors">Contact</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-section animate__animated animate__fadeInUp" style="animation-delay: 0.4s">
+            <h4>Resources</h4>
+            <ul>
+                <li><a href="#" class="hover:text-blue-500 transition-colors">Blog</a></li>
+                <li><a href="#" class="hover:text-blue-500 transition-colors">Study Tips</a></li>
+                <li><a href="#" class="hover:text-blue-500 transition-colors">FAQ</a></li>
+                <li><a href="#" class="hover:text-blue-500 transition-colors">Support</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-section animate__animated animate__fadeInUp" style="animation-delay: 0.6s">
+            <h4>Newsletter</h4>
+            <p>Stay updated with our latest features and tips.</p>
+            <form class="footer-subscribe">
+                <input type="email" placeholder="Enter your email" class="focus:ring-2 focus:ring-blue-500 transition-all duration-300">
+                <button type="submit" class="hover:bg-blue-600 transition-colors">Subscribe</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="footer-bottom">
+        <p>&copy; 2024 Study Tracker. All rights reserved.</p>
+        <div class="footer-links">
+            <a href="#" class="hover:text-blue-500 transition-colors">Privacy Policy</a>
+            <a href="#" class="hover:text-blue-500 transition-colors">Terms of Service</a>
+            <a href="#" class="hover:text-blue-500 transition-colors">Cookie Policy</a>
+        </div>
+    </div>
+</footer>
+    <a href="https://chat.openai.com" target="_blank" class="chatgpt-btn" title="Open ChatGPT">
+        <span class="chatgpt-icon">🤖</span>
+    </a>

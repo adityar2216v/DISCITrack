@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scientific Calculator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .math-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            opacity: 0.1;
+            z-index: -1;
+            overflow: hidden;
+            background-color: #1a1a1a;
+        }
+
+        .math-symbol {
+            position: absolute;
+            font-size: 2rem;
+            color: #ffffff;
+            animation: float 20s linear infinite;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+            }
+            100% {
+                transform: translateY(-100vh) rotate(360deg);
+            }
+        }
+
+        body {
+            background-color: #1a1a1a !important;
+        }
+
+        .calculator-container {
+            background-color: #2d2d2d;
+            border: 1px solid #3d3d3d;
+        }
+
+        .history-container {
+            background-color: #2d2d2d;
+            border: 1px solid #3d3d3d;
+        }
+
+        .display-input {
+            background-color: #1a1a1a !important;
+            color: #ffffff !important;
+            border-color: #3d3d3d !important;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-4">
+    <div class="math-bg" id="mathBg"></div>
+    <div class="container mx-auto max-w-4xl">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <!-- Calculator Section -->
+            <div class="md:col-span-2 calculator-container rounded-lg shadow-lg p-6">
+                <div class="mb-4">
+                    <input type="text" id="display" class="display-input w-full p-4 text-right text-2xl border rounded" readonly>
+                </div>
+                <div class="grid grid-cols-4 gap-2">
+                    <!-- Scientific Functions -->
+                    <button class="btn bg-blue-500 text-white p-3 rounded" onclick="calculate('sin')">sin</button>
+                    <button class="btn bg-blue-500 text-white p-3 rounded" onclick="calculate('cos')">cos</button>
+                    <button class="btn bg-blue-500 text-white p-3 rounded" onclick="calculate('tan')">tan</button>
+                    <button class="btn bg-blue-500 text-white p-3 rounded" onclick="calculate('sqrt')">√</button>
+                    
+                    <!-- Numbers and Basic Operations -->
+                    <button class="btn bg-gray-200 p-3 rounded" onclick="appendNumber('7')">7</button>
+                    <button class="btn bg-gray-200 p-3 rounded" onclick="appendNumber('8')">8</button>
+                    <button class="btn bg-gray-200 p-3 rounded" onclick="appendNumber('9')">9</button>
+                    <button class="btn bg-orange-500 text-white p-3 rounded" onclick="appendOperator('/')">/</button>
+                    
+                    <button class="btn bg-gray-200 p-3 rounded" onclick="appendNumber('4')">4</button>
+                    <button class="btn bg-gray-200 p-3 rounded" onclick="appendNumber('5')">5</button>
+                    <button class="btn bg-gray-200 p-3 rounded" onclick="appendNumber('6')">6</button>
+                    <button class="btn bg-orange-500 text-white p-3 rounded" onclick="appendOperator('*')">×</button>
+                    
+                    <button class="btn bg-gray-200 p-3 rounded" onclick="appendNumber('1')">1</button>
+                    <button class="btn bg-gray-200 p-3 rounded" onclick="appendNumber('2')">2</button>
+                    <button class="btn bg-gray-200 p-3 rounded" onclick="appendNumber('3')">3</button>
+                    <button class="btn bg-orange-500 text-white p-3 rounded" onclick="appendOperator('-')">-</button>
+                    
+                    <button class="btn bg-gray-200 p-3 rounded" onclick="appendNumber('0')">0</button>
+                    <button class="btn bg-gray-200 p-3 rounded" onclick="appendNumber('.')">.</button>
+                    <button class="btn bg-green-500 text-white p-3 rounded" onclick="calculateResult()">=</button>
+                    <button class="btn bg-orange-500 text-white p-3 rounded" onclick="appendOperator('+')">+</button>
+                    
+                    <button class="btn bg-red-500 text-white p-3 rounded col-span-2" onclick="clearDisplay()">Clear</button>
+                    <button class="btn bg-yellow-500 text-white p-3 rounded col-span-2" onclick="backspace()">⌫</button>
+                </div>
+            </div>
+            
+            <!-- History Section -->
+            <div class="history-container rounded-lg shadow-lg p-6">
+                <h2 class="text-xl font-bold mb-4 text-white">History</h2>
+                <div id="history" class="space-y-2 max-h-96 overflow-y-auto text-gray-200">
+                    <!-- History items will be added here -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        // Add mathematical symbols background
+        const mathSymbols = ['∑', '∫', '∏', '√', 'π', '∞', '±', '÷', '×', 'θ', 'Δ', 'λ', 'μ', 'σ', 'Ω', '∂', '∇'];
+        const mathBg = document.getElementById('mathBg');
+
+        function createSymbol() {
+            const symbol = document.createElement('div');
+            symbol.className = 'math-symbol';
+            symbol.textContent = mathSymbols[Math.floor(Math.random() * mathSymbols.length)];
+            symbol.style.left = Math.random() * 100 + 'vw';
+            symbol.style.animationDuration = (15 + Math.random() * 10) + 's';
+            symbol.style.opacity = 0.1 + Math.random() * 0.3;
+            mathBg.appendChild(symbol);
+
+            // Remove the symbol after animation
+            symbol.addEventListener('animationend', () => {
+                symbol.remove();
+            });
+        }
+
+        // Create initial symbols
+        for (let i = 0; i < 20; i++) {
+            createSymbol();
+        }
+
+        // Add new symbols periodically
+        setInterval(createSymbol, 2000);
+    </script>
+    <script src="calculator.js"></script>
+</body>
+</html>
