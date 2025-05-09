@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "node": "^24.0.1",
+    "nodejs": "^0.0.0"
+  },
+  "devDependencies": {
+    "esbuild": "^0.25.4"
+  }
+}

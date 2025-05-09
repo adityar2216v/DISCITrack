@@ -1,0 +1,99 @@
+:root {
+    --clock-size: 200px;
+    --clock-border: 10px;
+    --hand-width: 4px;
+    --second-hand-color: var(--accent-color, #ff6b6b);
+    --minute-hand-color: var(--text-primary, #2d3436);
+    --hour-hand-color: var(--text-primary, #2d3436);
+    --marker-color: var(--text-primary, #2d3436);
+    --clock-bg: var(--bg-primary, #ffffff);
+}
+
+.analog-clock {
+    width: var(--clock-size);
+    height: var(--clock-size);
+    border: var(--clock-border) solid var(--text-primary);
+    border-radius: 50%;
+    position: relative;
+    margin: 20px auto;
+    background: var(--clock-bg);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.analog-clock .center-dot {
+    width: 12px;
+    height: 12px;
+    background: var(--second-hand-color);
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.analog-clock .hand {
+    position: absolute;
+    bottom: 50%;
+    left: 50%;
+    transform-origin: bottom;
+    border-radius: 4px;
+    transition: transform 0.2s cubic-bezier(0.4, 2.08, 0.55, 0.44);
+}
+
+.analog-clock .hour-hand {
+    width: var(--hand-width);
+    height: 30%;
+    background: var(--hour-hand-color);
+    transform: translateX(-50%) rotate(0deg);
+}
+
+.analog-clock .minute-hand {
+    width: var(--hand-width);
+    height: 40%;
+    background: var(--minute-hand-color);
+    transform: translateX(-50%) rotate(0deg);
+}
+
+.analog-clock .second-hand {
+    width: calc(var(--hand-width) - 1px);
+    height: 45%;
+    background: var(--second-hand-color);
+    transform: translateX(-50%) rotate(0deg);
+}
+
+.analog-clock .marker {
+    position: absolute;
+    width: 2px;
+    height: 10px;
+    background: var(--marker-color);
+    left: 50%;
+    transform-origin: 50% calc(var(--clock-size) / 2);
+}
+
+.analog-clock .marker.hour {
+    width: 4px;
+    height: 14px;
+    background: var(--marker-color);
+}
+
+/* Generate markers */
+.analog-clock .marker:nth-child(1) { transform: translateX(-50%) rotate(30deg); }
+.analog-clock .marker:nth-child(2) { transform: translateX(-50%) rotate(60deg); }
+.analog-clock .marker:nth-child(3) { transform: translateX(-50%) rotate(90deg); }
+.analog-clock .marker:nth-child(4) { transform: translateX(-50%) rotate(120deg); }
+.analog-clock .marker:nth-child(5) { transform: translateX(-50%) rotate(150deg); }
+.analog-clock .marker:nth-child(6) { transform: translateX(-50%) rotate(180deg); }
+.analog-clock .marker:nth-child(7) { transform: translateX(-50%) rotate(210deg); }
+.analog-clock .marker:nth-child(8) { transform: translateX(-50%) rotate(240deg); }
+.analog-clock .marker:nth-child(9) { transform: translateX(-50%) rotate(270deg); }
+.analog-clock .marker:nth-child(10) { transform: translateX(-50%) rotate(300deg); }
+.analog-clock .marker:nth-child(11) { transform: translateX(-50%) rotate(330deg); }
+.analog-clock .marker:nth-child(12) { transform: translateX(-50%) rotate(360deg); }
+
+/* Dark mode enhancements */
+.dark-mode .analog-clock {
+    box-shadow: 0 0 25px rgba(255, 255, 255, 0.1);
+}

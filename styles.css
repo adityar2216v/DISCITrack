@@ -1,5 +1,14 @@
 /* Root Variables and Theme */
 :root {
+
+    --calendar-bg: #ffffff;
+    --calendar-border: #e2e8f0;
+    --calendar-shadow: rgba(0, 0, 0, 0.1);
+    --calendar-text: #2c3e50;
+    --calendar-selected-bg: #4a90e2;
+    --calendar-selected-text: #ffffff;
+    --calendar-today-bg: #ebf5ff;
+    --calendar-hover-bg: #f8fafc;
     --primary-color: #4a90e2;
     --secondary-color: #f5f6fa;
     --text-color: #2c3e50;
@@ -9,14 +18,56 @@
     --warning-color: #FFC107;
     --danger-color: #F44336;
     --focus-color: rgba(74, 144, 226, 0.2);
+    --animation-duration: 0.3s;
+    --animation-timing: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .dark-mode {
+    --calendar-bg: #2d3748;
+    --calendar-border: #4a5568;
+    --calendar-shadow: rgba(0, 0, 0, 0.25);
+    --calendar-text: #e2e8f0;
+    --calendar-selected-bg: #3498db;
+    --calendar-selected-text: #ffffff;
+    --calendar-today-bg: #2c3e50;
+    --calendar-hover-bg: #374151;
     --primary-color: #3498db;
     --secondary-color: #2c3e50;
     --text-color: #ecf0f1;
     --background-color: #1a1a1a;
     --shadow-color: rgba(255, 255, 255, 0.1);
+}
+
+.gradient-dark-mode {
+    --background-color: linear-gradient(135deg, #1a1a1a 0%, #663399 50%, #1a1a1a 100%);
+    --primary-color: #9c27b0;
+    --secondary-color: #673ab7;
+    --text-color: #f3f4f6;
+    --shadow-color: rgba(156, 39, 176, 0.2);
+    --calendar-bg: rgba(26, 26, 26, 0.95);
+    --calendar-border: #663399;
+    --calendar-shadow: rgba(156, 39, 176, 0.25);
+    --calendar-text: #f3f4f6;
+    --calendar-selected-bg: #9c27b0;
+    --calendar-selected-text: #ffffff;
+    --calendar-today-bg: #4a1c6b;
+    --calendar-hover-bg: rgba(156, 39, 176, 0.1);
+    background: var(--background-color);
+}
+
+.gradient-dark-mode .theme-dropdown,
+.gradient-dark-mode .dropdown-content {
+    background: rgba(26, 26, 26, 0.95);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(99, 102, 241, 0.2);
+}
+
+.theme-option:hover {
+    background-color: var(--calendar-hover-bg);
+}
+
+.gradient-dark-mode .theme-option:hover {
+    background: rgba(99, 102, 241, 0.1);
 }
 
 /* Add smooth scrolling */
@@ -26,15 +77,56 @@ html {
 
 /* Update existing styles to work with Tailwind */
 .main-container {
-    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+    max-width: 80rem;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+@media (min-width: 640px) {
+    .main-container {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+    }
+}
+
+@media (min-width: 1024px) {
+    .main-container {
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
 }
 
 .timer {
-    @apply bg-white p-6 rounded-lg shadow-lg transform hover:scale-105 transition-all duration-300;
+    background-color: white;
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    transform: translateZ(0);
+    transition-property: all;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 300ms;
+}
+
+.timer:hover {
+    transform: scale(1.05);
 }
 
 .controls button {
-    @apply px-6 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transform hover:scale-105 transition-all duration-300;
+    padding: 0.5rem 1.5rem;
+    border-radius: 0.5rem;
+    background-color: #2563eb;
+    color: white;
+    transform: translateZ(0);
+    transition-property: all;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 300ms;
+}
+
+.controls button:hover {
+    background-color: #1d4ed8;
+    transform: scale(1.05);
 }
 
 /* Digital Clock Animation */
@@ -51,16 +143,36 @@ html {
 
 /* Enhance existing components */
 .video-container {
-    @apply bg-white p-4 rounded-lg shadow-lg transform hover:scale-105 transition-all duration-300;
+    background-color: white;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    transform: translateZ(0);
+    transition-property: all;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 300ms;
+}
+
+.video-container:hover {
+    transform: scale(1.05);
 }
 
 .stat-card {
-    @apply bg-white p-6 rounded-lg shadow-lg transform hover:scale-105 transition-all duration-300;
+    background-color: white;
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    transform: translateZ(0);
+    transition-property: all;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 300ms;
 }
 
-.chatbot {
-    @apply bg-white rounded-lg shadow-lg;
+.stat-card:hover {
+    transform: scale(1.05);
 }
+
+
 
 * {
     margin: 0;
@@ -116,6 +228,62 @@ body::before {
     max-width: 1200px;
     margin: 0 auto;
     padding: 2rem;
+}
+
+/* Calendar Styles */
+.calendar-modal {
+    position: absolute;
+    background-color: var(--calendar-bg);
+    border: 1px solid var(--calendar-border);
+    border-radius: 8px;
+    box-shadow: 0 4px 6px var(--calendar-shadow);
+    padding: 1rem;
+    z-index: 1000;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: all var(--animation-duration) var(--animation-timing);
+    pointer-events: none;
+}
+
+.calendar-modal.open {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 0.5rem;
+    text-align: center;
+}
+
+.calendar-day {
+    padding: 0.5rem;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+}
+
+.calendar-day:hover {
+    background-color: var(--calendar-hover-bg);
+}
+
+.calendar-day.selected {
+    background-color: var(--calendar-selected-bg);
+    color: var(--calendar-selected-text);
+}
+
+.calendar-day.today {
+    background-color: var(--calendar-today-bg);
+    font-weight: bold;
 }
 
 /* Navigation Bar Styles */
@@ -263,6 +431,111 @@ body::before {
     }
 }
 
+/* Statistics Section Styles */
+.statistics-section {
+    margin: 3rem 0;
+    padding: 2rem;
+    background: var(--background-color);
+    border-radius: 15px;
+    box-shadow: 0 4px 6px var(--shadow-color);
+}
+
+.section-title {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: var(--text-color);
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    padding: 1rem;
+}
+
+.stat-card {
+    background: var(--card-background);
+    padding: 1.5rem;
+    border-radius: 12px;
+    text-align: center;
+    transition: all var(--animation-duration) var(--animation-timing);
+    box-shadow: 0 2px 4px var(--shadow-color);
+    position: relative;
+    overflow: hidden;
+}
+
+@keyframes statCardFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+}
+
+.stat-card:hover {
+    animation: statCardFloat 3s ease-in-out infinite;
+    box-shadow: 0 8px 20px var(--shadow-color);
+}
+
+.stat-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(225deg, transparent, rgba(255,255,255,0.2), transparent);
+    transform: translate(-100%, -100%);
+    transition: transform 0.8s var(--animation-timing);
+}
+
+.stat-card:hover::after {
+    transform: translate(0, 0);
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 8px var(--shadow-color);
+}
+
+.stat-icon {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.stat-card h3 {
+    color: var(--text-color);
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.stat-value {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin: 0.5rem 0;
+}
+
+.stat-description {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+}
+
+@media (max-width: 768px) {
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .stat-card {
+        padding: 1rem;
+    }
+    
+    .stat-value {
+        font-size: 1.5rem;
+    }
+}
+
 /* Update Video Tracking Styles */
 .tracking-section {
     display: grid;
@@ -343,153 +616,6 @@ video, canvas {
 
 
 
-/* Update Chatbot Styles */
-.chatbot-container {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    z-index: 1000;
-}
-
-.chat-toggle-btn {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    background: var(--primary-color);
-    border: none;
-    color: white;
-    font-size: 24px;
-    cursor: pointer;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    transition: all 0.3s ease;
-    position: relative;
-    overflow: hidden;
-}
-
-.chat-toggle-btn:hover {
-    transform: scale(1.1);
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
-}
-
-.chat-toggle-btn .chat-icon,
-.chat-toggle-btn .close-icon {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    transition: all 0.3s ease;
-}
-
-.chat-toggle-btn .close-icon {
-    opacity: 0;
-    transform: translate(-50%, -50%) rotate(-180deg);
-}
-
-.chat-toggle-btn.active .chat-icon {
-    opacity: 0;
-    transform: translate(-50%, -50%) rotate(180deg);
-}
-
-.chat-toggle-btn.active .close-icon {
-    opacity: 1;
-    transform: translate(-50%, -50%) rotate(0);
-}
-
-.chatbot {
-    position: absolute;
-    bottom: 80px;
-    right: 0;
-    width: 350px;
-    background: var(--background-color);
-    border-radius: 15px;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
-    transition: all 0.3s ease;
-    transform-origin: bottom right;
-}
-
-.chatbot.hidden {
-    transform: scale(0);
-    opacity: 0;
-}
-
-.chat-header {
-    padding: 1rem;
-    background: var(--primary-color);
-    color: white;
-    border-radius: 15px 15px 0 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.chat-header h3 {
-    margin: 0;
-    font-size: 1.1rem;
-}
-
-.close-btn {
-    background: none;
-    border: none;
-    color: white;
-    font-size: 1.2rem;
-    cursor: pointer;
-    padding: 0.2rem;
-    transition: transform 0.3s ease;
-}
-
-.close-btn:hover {
-    transform: rotate(90deg);
-}
-
-.chat-messages {
-    height: 300px;
-    overflow-y: auto;
-    padding: 1rem;
-    background: var(--background-color);
-}
-
-.chat-input {
-    display: flex;
-    gap: 0.5rem;
-    padding: 1rem;
-    border-top: 1px solid rgba(0, 0, 0, 0.1);
-}
-
-.chat-input input {
-    flex: 1;
-    padding: 0.8rem;
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    border-radius: 5px;
-    outline: none;
-    transition: all 0.3s ease;
-}
-
-.chat-input input:focus {
-    border-color: var(--primary-color);
-    box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.2);
-}
-
-.send-btn {
-    padding: 0.8rem 1.2rem;
-    background: var(--primary-color);
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.send-btn:hover {
-    background: var(--primary-color);
-    transform: translateY(-2px);
-}
-
-@media (max-width: 768px) {
-    .chatbot {
-        width: calc(100vw - 40px);
-        right: -20px;
-    }
-}
 
 /* Add these new styles for navigation effects */
 .nav-link {
@@ -499,12 +625,20 @@ video, canvas {
     align-items: center;
     padding: 0.5rem 1rem;
     border-radius: 0.5rem;
-    transition: all 0.3s ease;
+    transition: all var(--animation-duration) var(--animation-timing);
+    transform-origin: center;
 }
 
 .nav-link:hover {
     background: rgba(59, 130, 246, 0.1);
-    transform: translateY(-2px);
+    transform: translateY(-2px) scale(1.05);
+    animation: navLinkPop 0.3s var(--animation-timing);
+}
+
+@keyframes navLinkPop {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1.05); }
 }
 
 .nav-link::before {
@@ -572,6 +706,35 @@ video, canvas {
     justify-content: center;
     align-items: center;
     gap: 0.5rem;
+    position: relative;
+    overflow: hidden;
+    transition: all var(--animation-duration) var(--animation-timing);
+}
+
+@keyframes clockGlow {
+    0%, 100% { box-shadow: 0 4px 6px var(--shadow-color); }
+    50% { box-shadow: 0 8px 20px var(--primary-color); }
+}
+
+.digital-clock:hover {
+    animation: clockGlow 2s var(--animation-timing) infinite;
+    transform: scale(1.02);
+}
+
+.digital-clock::before {
+    content: '';
+    position: absolute;
+    top: -100%;
+    left: -100%;
+    width: 300%;
+    height: 300%;
+    background: radial-gradient(circle, rgba(74,144,226,0.1) 0%, transparent 70%);
+    animation: clockRotate 10s linear infinite;
+}
+
+@keyframes clockRotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
 }
 
 .time-unit {
@@ -696,6 +859,21 @@ video, canvas {
     transform: translateY(1px);
 }
 
+.tracking-btn.active {
+    background: linear-gradient(135deg, #F44336, #E53935) !important;
+    border-color: #D32F2F !important;
+    animation: none !important;
+}
+
+.tracking-btn.active::before {
+    background: linear-gradient(
+        120deg,
+        transparent,
+        rgba(255, 255, 255, 0.2),
+        transparent
+    );
+}
+
 /* Button Animation */
 .controls button::before {
     content: '';
@@ -799,11 +977,32 @@ video, canvas {
     padding: 2rem;
     border-radius: 15px;
     box-shadow: 0 4px 6px var(--shadow-color);
-    transition: transform 0.3s ease;
+    transition: all var(--animation-duration) var(--animation-timing);
+    position: relative;
+    overflow: hidden;
 }
 
 .feature-card:hover {
-    transform: translateY(-10px);
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 8px 15px var(--shadow-color);
+}
+
+.feature-card::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 70%);
+    opacity: 0;
+    transform: scale(0.5);
+    transition: all 0.5s var(--animation-timing);
+}
+
+.feature-card:hover::after {
+    opacity: 1;
+    transform: scale(1);
 }
 
 .feature-icon {
@@ -864,11 +1063,24 @@ video, canvas {
     background: var(--secondary-color);
     border-radius: 15px;
     box-shadow: 0 4px 6px var(--shadow-color);
-    transition: transform 0.3s ease;
+    transition: all var(--animation-duration) var(--animation-timing);
+    position: relative;
+    overflow: hidden;
 }
 
 .benefit-item:hover {
-    transform: translateY(-5px);
+    transform: translateY(-5px) rotate(1deg);
+    box-shadow: 0 8px 20px var(--shadow-color);
+}
+
+@keyframes benefitPulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.benefit-icon {
+    animation: benefitPulse 2s infinite var(--animation-timing);
 }
 
 .benefit-icon {
@@ -946,11 +1158,31 @@ video, canvas {
     padding: 1.5rem;
     border-radius: 10px;
     box-shadow: 0 4px 6px var(--shadow-color);
-    transition: transform 0.3s ease;
+    transition: all var(--animation-duration) var(--animation-timing);
+    position: relative;
+    z-index: 1;
 }
 
 .info-card:hover {
-    transform: translateY(-5px);
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 8px 20px var(--shadow-color);
+}
+
+.info-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+    transform: translateX(-100%);
+    transition: transform 0.6s var(--animation-timing);
+    z-index: -1;
+}
+
+.info-card:hover::before {
+    transform: translateX(100%);
 }
 
 .info-icon {
@@ -1016,7 +1248,29 @@ video, canvas {
     border-radius: 5px;
     cursor: pointer;
     font-weight: 600;
-    transition: all 0.3s ease;
+    transition: all var(--animation-duration) var(--animation-timing);
+    position: relative;
+    overflow: hidden;
+}
+
+.submit-btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 300%;
+    height: 300%;
+    background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 60%);
+    transform: translate(-50%, -50%) scale(0);
+    transition: transform 0.6s var(--animation-timing);
+}
+
+.submit-btn:hover::before {
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.submit-btn:active {
+    transform: scale(0.98);
 }
 
 /* Footer Styles */
@@ -1121,48 +1375,6 @@ video, canvas {
     }
 }
 
-/* Add these styles for the ChatGPT button */
-.chatgpt-btn {
-    position: fixed;
-    bottom: 90px; /* Position above the chat button */
-    right: 20px;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, #19C37D, #128C59);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    transition: all 0.3s ease;
-    text-decoration: none;
-    z-index: 1000;
-}
-
-.chatgpt-btn:hover {
-    transform: scale(1.1) rotate(5deg);
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
-}
-
-.chatgpt-icon {
-    font-size: 24px;
-    color: white;
-    transition: transform 0.3s ease;
-}
-
-.chatgpt-btn:hover .chatgpt-icon {
-    transform: scale(1.2);
-}
-
-/* Adjust for mobile */
-@media (max-width: 768px) {
-    .chatgpt-btn {
-        bottom: auto;
-        top: 20px;
-        right: 20px;
-    }
-}
 
 @media (max-width: 768px) {
     .tracking-section {

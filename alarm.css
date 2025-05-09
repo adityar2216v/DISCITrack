@@ -1,0 +1,119 @@
+.alarm-button {
+    padding: 0.5rem;
+    border-radius: 50%;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: var(--text-color);
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px;
+}
+
+.alarm-button:hover {
+    background: rgba(74, 144, 226, 0.1);
+    transform: scale(1.1);
+}
+
+.alarm-modal {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--background-color);
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px var(--shadow-color);
+    z-index: 1000;
+    width: 300px;
+}
+
+.alarm-modal.active {
+    display: block;
+    animation: fadeIn 0.3s ease-out;
+}
+
+.alarm-modal h2 {
+    color: var(--text-color);
+    margin-bottom: 15px;
+    font-size: 1.2em;
+    text-align: center;
+}
+
+.alarm-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.alarm-input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.alarm-input-group label {
+    color: var(--text-color);
+    font-size: 0.9em;
+}
+
+.alarm-input-group input {
+    padding: 8px;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    background: var(--input-background);
+    color: var(--text-color);
+}
+
+.alarm-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.alarm-actions button {
+    padding: 8px 16px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    font-size: 0.9em;
+    transition: all 0.3s;
+}
+
+.alarm-save {
+    background: #4ade80;
+    color: white;
+}
+
+.alarm-cancel {
+    background: #e5e7eb;
+    color: #4b5563;
+}
+
+.alarm-save:hover {
+    background: #22c55e;
+}
+
+.alarm-cancel:hover {
+    background: #d1d5db;
+}
+
+.alarm-modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}
+
+.alarm-modal-overlay.active {
+    display: block;
+}

@@ -1,5 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
+<script>
+    if (document.referrer === '') {
+        window.location.href = 'welcome.html';
+    }
+</script>
 <head>
      <link rel="icon" href="logo.jpg">
     <meta charset="UTF-8">
@@ -7,9 +12,42 @@
     <title>DisciTrack - Study Time Tracker</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="floating-buttons.css">
+    <link rel="stylesheet" href="chat-interface.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="alarm.css">
+    <link rel="stylesheet" href="calendar.css">
+    <link rel="stylesheet" href="window-focus.css">
+    <link rel="stylesheet" href="calculator.css">
+    <link rel="stylesheet" href="analog-clock.css">
+    <script src="theme.js" defer></script>
+    <script src="background-animation.js" defer></script>
+    <script src="alarm.js" defer></script>
+    <script src="calendar.js" defer></script>
+    <script src="contact-form.js" defer></script>
+    <script src="dropdown.js" defer></script>
+    <script src="chatbot.js" defer></script>
+    <script src="window-focus.js" defer></script>
+    <script src="calculator.js" defer></script>
+    <script src="analog-clock.js" defer></script>
+    <style>
+        .dropdown-content {
+            transform-origin: top right;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .settings-dropdown-btn {
+            font-size: 1rem;
+            border: 1px solid #e2e8f0;
+        }
+        
+        .dropdown-content button {
+            border-radius: 0.375rem;
+            margin: 0.25rem;
+        }
+    </style>
 </head>
-<body class="light-mode">
+<body class="light-mode" style="position: relative; overflow-x: hidden;">
  
     <nav class="navbar">
         <div class="nav-logo">
@@ -28,35 +66,71 @@
         </div>
         
         <div class="nav-right">
-            <div id="digitalClock" class="text-xl font-semibold mr-4 animate__animated animate__fadeIn">00:00:00</div>
-            <button id="themeToggle" class="theme-toggle">🌙</button>
+            <div class="dropdown relative inline-block">
+                <button id="settingsDropdown" class="settings-dropdown-btn px-3 py-2 rounded-lg bg-gray-100 hover:bg-gray-200 transition-colors flex items-center space-x-2">
+                    <span>⚙️</span>
+                </button>
+                <div class="dropdown-content hidden absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg z-50 animate__animated animate__fadeIn">
+                    <button id="calendarBtn" class="w-full px-4 py-2 text-left hover:bg-gray-100 transition-colors flex items-center">
+                        <span class="mr-2">📅</span>Calendar
+                    </button>
+                    <button id="alarmToggle" class="w-full px-4 py-2 text-left hover:bg-gray-100 transition-colors flex items-center">
+                        <span class="mr-2">⏰</span>Set Alarm
+                    </button>
+                    <button id="themeToggle" class="w-full px-4 py-2 text-left hover:bg-gray-100 transition-colors flex items-center">
+                        <span class="mr-2">🌛</span>Theme
+                    </button>
+                    
+                </div>
+            </div>
         </div>
     </nav>
 
+
+    <div class="alarm-modal-overlay"></div>
+    <div class="alarm-modal">
+        <h2>Set Study Alarm</h2>
+        <form class="alarm-form" id="alarmForm">
+            <div class="alarm-input-group">
+                <label for="alarmTime">Alarm Time</label>
+                <input type="time" id="alarmTime" required>
+            </div>
+            <div class="alarm-input-group">
+                <label for="alarmMessage">Message (optional)</label>
+                <input type="text" id="alarmMessage" placeholder="Enter a reminder message">
+            </div>
+            <div class="alarm-actions">
+                <button type="button" class="alarm-cancel" id="cancelAlarm">Cancel</button>
+                <button type="submit" class="alarm-save">Save Alarm</button>
+            </div>
+        </form>
+    </div>
+
     <main class="pt-16">
         <div class="main-container" id="mainContainer">
-            <!-- Replace the video-container div with this new structure -->
             <div class="tracking-section">
                 <div class="video-container">
                     <video id="video" autoplay playsinline></video>
                     <canvas id="canvas"></canvas>
                 </div>
                 <div class="clock-container">
-                    <div class="digital-clock">
-                        <div class="time-unit">
-                            <span id="hours">00</span>
-                            <label>Hours</label>
-                        </div>
-                        <div class="time-separator">:</div>
-                        <div class="time-unit">
-                            <span id="minutes">00</span>
-                            <label>Minutes</label>
-                        </div>
-                        <div class="time-separator">:</div>
-                        <div class="time-unit">
-                            <span id="seconds">00</span>
-                            <label>Seconds</label>
-                        </div>
+                    <div class="analog-clock">
+                        <div class="center-dot"></div>
+                        <div class="hand hour-hand"></div>
+                        <div class="hand minute-hand"></div>
+                        <div class="hand second-hand"></div>
+                        <div class="marker hour"></div>
+                        <div class="marker"></div>
+                        <div class="marker"></div>
+                        <div class="marker hour"></div>
+                        <div class="marker"></div>
+                        <div class="marker"></div>
+                        <div class="marker hour"></div>
+                        <div class="marker"></div>
+                        <div class="marker"></div>
+                        <div class="marker hour"></div>
+                        <div class="marker"></div>
+                        <div class="marker"></div>
                     </div>
                     <div class="session-time">
                         <h3>Session Duration</h3>
@@ -81,16 +155,44 @@
             </div>
 
             <div class="controls">
-                <button id="startTracking">Start Tracking</button>
+                <button id="startTracking" class="tracking-btn">Start Tracking</button>
                 <button id="pauseTracking">Pause</button>
                 <button id="resetTracking">Reset</button>
+            </div>
+
+            <div class="statistics-section animate__animated animate__fadeIn">
+                <h2 class="section-title">Study Statistics</h2>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">⏱️</div>
+                        <h3>Total Study Time</h3>
+                        <div class="stat-value" id="totalStudyTime">0 Hours</div>
+                        <p class="stat-description">Cumulative time spent studying</p>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">🎯</div>
+                        <h3>Focus Rate</h3>
+                        <div class="stat-value" id="focusRate">0%</div>
+                        <p class="stat-description">Percentage of focused study time</p>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">📊</div>
+                        <h3>Productivity Score</h3>
+                        <div class="stat-value" id="productivityScore">0</div>
+                        <p class="stat-description">Overall study effectiveness</p>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">🔄</div>
+                        <h3>Recovery Rate</h3>
+                        <div class="stat-value" id="recoveryRate">0%</div>
+                        <p class="stat-description">Time spent getting back to focus</p>
+                    </div>
+                </div>
             </div>
         </div>
 
        
-        <!-- About Section -->
         <section id="about" class="my-16 animate__animated animate__fadeIn">
-        <!-- Replace the existing about section with this new one -->
         <div class="about-section" id="about">
             <h2>About Study Time Tracker</h2>
             
@@ -160,11 +262,8 @@
             </div>
         </div>
     </section>
-    <a href="https://chat.openai.com" target="_blank" class="chatgpt-btn" title="Open ChatGPT">
-        <span class="chatgpt-icon">🤖</span>
-    </a>
-    <!-- Contact Section -->
-    <!-- Replace the existing contact section with this new one -->
+  
+    
     <section id="contact" class="contact-section animate__animated animate__fadeIn">
         <div class="contact-header">
             <h2>Get in Touch</h2>
@@ -207,14 +306,14 @@
     
             <div class="contact-form-container animate__animated animate__fadeInRight">
                 <h3>Send Us a Message</h3>
-                <form class="contact-form" id="contactForm">
+                <form class="contact-form" id="contactForm" action="https://docs.google.com/forms/d/e/1FAIpQLSfVkJ6k5HwxOQGMQTQDVYKqrVcRvXF9xYkxQoWU9EJgHHuYfA/formResponse" method="post" target="_blank">
                     <div class="form-group">
-                        <input type="text" id="name" placeholder="Your Name" required class="focus:ring-2 focus:ring-blue-500 transition-all duration-300">
-                        <input type="email" id="email" placeholder="Your Email" required class="focus:ring-2 focus:ring-blue-500 transition-all duration-300">
+                        <input type="text" name="entry.2005620554" id="name" placeholder="Your Name" required class="focus:ring-2 focus:ring-blue-500 transition-all duration-300">
+                        <input type="email" name="entry.1045781291" id="email" placeholder="Your Email" required class="focus:ring-2 focus:ring-blue-500 transition-all duration-300">
                     </div>
     
                     <div class="form-group">
-                        <select id="subject" required class="focus:ring-2 focus:ring-blue-500 transition-all duration-300">
+                        <select name="entry.1065046570" id="subject" required class="focus:ring-2 focus:ring-blue-500 transition-all duration-300">
                             <option value="">Select Subject</option>
                             <option value="technical">Technical Support</option>
                             <option value="feedback">Product Feedback</option>
@@ -224,7 +323,7 @@
                     </div>
     
                     <div class="form-group">
-                        <textarea id="message" placeholder="Your Message" required class="focus:ring-2 focus:ring-blue-500 transition-all duration-300"></textarea>
+                        <textarea name="entry.839337160" id="message" placeholder="Your Message" required class="focus:ring-2 focus:ring-blue-500 transition-all duration-300"></textarea>
                     </div>
     
                     <div class="form-group">
@@ -235,6 +334,7 @@
                         </label>
                     </div>
                     <button type="submit" class="submit-btn hover:scale-105 transition-transform">Send Message</button>
+                    <div id="formSubmitMessage" class="mt-4 text-center hidden"></div>
                 </form>
             </div>
         </div>
@@ -242,13 +342,69 @@
     
    
 
+    <div class="floating-buttons">
+        <button class="floating-btn" id="chatGptBtn" title="Open chatbot">
+            <span>🤖</span>
+        </button>
+    </div>
+        <style>
+        .time-block {
+            background: #f0f0f0;
+            border: 1px solid #ddd;
+            padding: 8px;
+            margin: 4px 0;
+            border-radius: 4px;
+            cursor: move;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .time-grid {
+            display: grid;
+            grid-template-columns: 100px 1fr;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+    </style>
+    <div class="modal-overlay" id="calculatorOverlay"></div>
+    <div class="calculator-modal" id="calculatorModal">
+        <button class="close-modal" id="closeCalculator" aria-label="Close calculator">×</button>
+        <div class="calculator-display" id="display">0</div>
+        <div class="calculator-buttons">
+            <button class="calc-btn clear" onclick="clearDisplay()">C</button>
+            <button class="calc-btn operator" onclick="addOperator('(')">(</button>
+            <button class="calc-btn operator" onclick="addOperator(')')">)</button>
+            <button class="calc-btn operator" onclick="addOperator('/')">÷</button>
+            
+            <button class="calc-btn" onclick="appendNumber('7')">7</button>
+            <button class="calc-btn" onclick="appendNumber('8')">8</button>
+            <button class="calc-btn" onclick="appendNumber('9')">9</button>
+            <button class="calc-btn operator" onclick="addOperator('*')">×</button>
+            
+            <button class="calc-btn" onclick="appendNumber('4')">4</button>
+            <button class="calc-btn" onclick="appendNumber('5')">5</button>
+            <button class="calc-btn" onclick="appendNumber('6')">6</button>
+            <button class="calc-btn operator" onclick="addOperator('-')">-</button>
+            
+            <button class="calc-btn" onclick="appendNumber('1')">1</button>
+            <button class="calc-btn" onclick="appendNumber('2')">2</button>
+            <button class="calc-btn" onclick="appendNumber('3')">3</button>
+            <button class="calc-btn operator" onclick="addOperator('+')">+</button>
+            
+            <button class="calc-btn" onclick="appendNumber('0')">0</button>
+            <button class="calc-btn" onclick="appendNumber('.')">.</button>
+            <button class="calc-btn equals" onclick="calculate()">=</button>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="schedulerOverlay"></div>
+
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/blazeface"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="app.js"></script>
+    <script src="floating-buttons.js"></script>
+    <script src="window-focus.js"></script>
 </body>
-</html>
-<!-- Add the footer section -->
 <footer class="footer animate__animated animate__fadeIn">
     <div class="footer-content">
         <div class="footer-section animate__animated animate__fadeInUp">
@@ -303,7 +459,5 @@
             <a href="#" class="hover:text-blue-500 transition-colors">Cookie Policy</a>
         </div>
     </div>
-</footer>
-    <a href="https://chat.openai.com" target="_blank" class="chatgpt-btn" title="Open ChatGPT">
-        <span class="chatgpt-icon">🤖</span>
-    </a>
+</footer>   
+</html>
